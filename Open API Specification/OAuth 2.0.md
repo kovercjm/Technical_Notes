@@ -1,6 +1,32 @@
 # What is OAuth 2.0
 OAuth 2.0 is the industry-standard protocol for authorization.
 
+*Reference*:
+
+* [OAuth 2 Specification](https://oauth.net/2/)
+* [OAuth 2 Simplified](https://aaronparecki.com/oauth-2-simplified/)
+
+# Protocol Flow Chart
+```
+     +--------+                               +---------------+
+     |        |--(A)- Authorization Request ->|   Resource    |
+     |        |                               |     Owner     |
+     |        |<-(B)-- Authorization Grant ---|               |
+     |        |                               +---------------+
+     |        |
+     |        |                               +---------------+
+     |        |--(C)-- Authorization Grant -->| Authorization |
+     | Client |                               |     Server    |
+     |        |<-(D)----- Access Token -------|               |
+     |        |                               +---------------+
+     |        |
+     |        |                               +---------------+
+     |        |--(E)----- Access Token ------>|    Resource   |
+     |        |                               |     Server    |
+     |        |<-(F)--- Protected Resource ---|               |
+     +--------+                               +---------------+
+```
+
 # Roles
 ## *Client* - The Third-Party Application
 The client is the application that is attempting to get access to the user's account. It needs to get permission from the user before it can do so.
