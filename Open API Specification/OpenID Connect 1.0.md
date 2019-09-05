@@ -96,5 +96,5 @@ To distinguish with OAuth 2.0 request, OpenID Connect requests MUST contain the 
 # *Reference*
 * [OpenID Connect Official](https://openid.net/connect/)
 * [OpenID Basic Guide](https://openid.net/specs/openid-connect-basic-1_0.html)
+* [[认证 & 授权] 4. OIDC（OpenId Connect）身份认证（核心部分）](https://www.cnblogs.com/linianhui/p/openid-connect-core.html)
 * [瞭解 OpenID Connect 認證機制](https://medium.com/@petertc/openid-connect-a27e0a3cc2ae)
-
