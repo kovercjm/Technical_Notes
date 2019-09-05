@@ -1,12 +1,6 @@
 # What is promise?
 JavaScript is single threaded, meaning that two bits of script cannot run at the same time; they have to run one after another. So `promise` is to solve asynchronous problem in JS multithread programming.
 
-*Reference*:
-* [JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/primers/promises#promise-terminology)
-* [Master the JavaScript Interview: What is a Promise?](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261)
-* [We have a problem with promises](https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html)
-* [Diagram Source](http://stackoverflow.com/questions/24662289/when-is-thensuccess-fail-considered-an-antipattern-for-promises)
-
 # Basic Specification
 - A promise can only succeed or fail *once*. It cannot succeed or fail twice, neither can it switch from success to failure or vice versa.
 - If a promise has succeeded or failed and you later add a success/failure callback, the correct callback will be called, even though the event took place earlier.
@@ -67,13 +61,19 @@ save()
 The difference is subtle, but important. In the first example, an error originating in the save() operation will be caught, but an error originating in the handleSuccess() function will be swallowed.
 
 <div align=center>
-<img src=https://github.com/KOVERcjm/Technical_Notes/Picutres/Promise%20using%20guide%20-%20with%20catch.png>
+<img src=https://github.com/KOVERcjm/Technical_Notes/raw/master/Pictures/Promise%20using%20guide%20-%20with%20catch.png>
 <br />
 Without .catch(), an error in the success handler is uncaught.
-<img src=https://github.com/KOVERcjm/Technical_Notes/Picutres/Promise%20using%20guide%20-%20without%20catch.png>
+<img src=https://github.com/KOVERcjm/Technical_Notes/raw/master/Pictures/Promise%20using%20guide%20-%20without%20catch.png>
 <br />
 With .catch(), both error sources are handled.
 </div>
 
 So it's recommend ending all promise chains with a `.catch()`.
 
+
+# *Reference*
+* [JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/primers/promises#promise-terminology)
+* [Master the JavaScript Interview: What is a Promise?](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261)
+* [We have a problem with promises](https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html)
+* [Diagram Source](http://stackoverflow.com/questions/24662289/when-is-thensuccess-fail-considered-an-antipattern-for-promises)
