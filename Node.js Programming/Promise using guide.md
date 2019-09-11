@@ -73,7 +73,8 @@ So it's recommend ending all promise chains with a `.catch()`.
 
 
 # *Reference*
-* [JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/primers/promises#promise-terminology)
-* [Master the JavaScript Interview: What is a Promise?](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261)
-* [We have a problem with promises](https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html)
-* [Diagram Source](http://stackoverflow.com/questions/24662289/when-is-thensuccess-fail-considered-an-antipattern-for-promises)
+> * [JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/primers/promises#promise-terminology)
+> * [Master the JavaScript Interview: What is a Promise?](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261)
+> * [We have a problem with promises](https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html)
+> * [We have a problem with promises (Chinese version)](https://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&mid=2651551800&idx=1&sn=d06d319c002fdca153bc2abe9352e959&chksm=8025aff9b75226efe21a5094ce14a29c467be74ef2eb631157ea2732106642357617935e9464&mpshare=1&scene=1&srcid=0224AMZJRxN6nMI53jiG8DeX&key=494a5736f574d32d344982760d1421bb12d64307aedc362f175f134d7798eae7d9573dfc22c0731501cb5f318fd59eff2edadae87b920e8c8960759de29358dc6df930836b0cfeb2bb79880f72bba96b&ascene=0&uin=MjUwNzcwOTcwMA%3D%3D&devicetype=iMac+MacBookPro9%2C2+OSX+OSX+10.11.6+build(15G31)&version=12010210&nettype=WIFI&fontScale=100&pass_ticket=JQVnZiE4ehmQ22J9EiHcr7TGgYeDIQiMZl%2FEpRgnGN%2B3VGKkGyphZLcPq8VFePjQ)
+> * [Diagram Source](http://stackoverflow.com/questions/24662289/when-is-thensuccess-fail-considered-an-antipattern-for-promises)
