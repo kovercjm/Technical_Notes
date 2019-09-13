@@ -8,8 +8,6 @@ JVM内存结构图例
 # 1 Run-Time Data Areas- 运行时数据区域
 若干程序运行期间所使用到的运行时数据区域，包括程序计数器、堆、虚拟机栈、方法区和本地方法栈。这些区域所使用的内存可不连续，可调节初始固定/最大最小容量。
 Various run-time data areas that are used during the execution of a program, including PC register, heap, stack, method area and native method stack. The memory of areas does not need to be contiguous, and the initial fixed size or the maximum and minimum size may be chosen.
-> 本章引用自*《Java虚拟机规范》*。
-> This chapter referred to *The Java Virtual Machine Specification*.
 
 ## 1.1 Program Counter (PC) Register- 程序计数器
 Java虚拟机支持多线程，每条线程有自己的PC寄存器；任意时刻，一条线程只会执行一个方法（当前方法）的代码。
@@ -38,8 +36,6 @@ Associated exceptional conditions: [OutOfMemoryError] memory in the method area 
 Native method stack is a conventional stack (C stack) supports native methods, which is typically allocated per thread when each thread is created.
 **可能发生的异常**：【StackOverflowError】线程请求分配的栈容量超过了最大容量；【OutOfMemoryError】在尝试扩展容量或创建新线程时，申请不到足够的内存。
 Associated exceptional conditions: [StackOverflowError] the computation in a thread requires a larger native method stack than is permitted; [OutOfMemoryError] insufficient memory can be made available to effect a stack's dynamically expansion or a new thread's creation.
-
-----------
 
 # 2 Garbage Collection- 垃圾回收
 在运行时数据区域中，程序计数器、虚拟机栈和本地方法栈3个区域随线程而生灭；栈中的栈帧随方法的进出而出入栈；这几个区域的内存分配与回收具备确定性。而**堆**和**方法区**则不一样，只有在程序运行期间才能动态地分配这部分内存。通过垃圾回收机制，Java使开发者无需关注空间的创建与释放，在后台建立一个守护进程，保障程序正常运行。
@@ -348,3 +344,6 @@ class Derived extends Base
     private static void f(){}   //hides Base. f()
 }
 ```
+# 5 引用及相关链接
+> 第一章引用自*《Java虚拟机规范》*。
+> The first chapter referred to *The Java Virtual Machine Specification*.
