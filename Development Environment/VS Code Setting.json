@@ -1,0 +1,15 @@
+{
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 5000,
+    "editor.fontSize": 16,
+    "editor.fontFamily": "FiraCode-Retina, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "terminal.integrated.shell.osx": "zsh",
+    "terminal.integrated.fontFamily": "SauceCodePro Nerd Font",
+    "git.confirmSync": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "scm.alwaysShowActions": true,
+    "scm.alwaysShowProviders": true,
+    "git.confirmEmptyCommits": false,
+    "explorer.confirmDragAndDrop": false
+}
