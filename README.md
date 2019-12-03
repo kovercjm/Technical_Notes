@@ -1,7 +1,7 @@
 # My Technical Notes
 A place for me to summarize my personal technical points during work and study.
 
-# Content (11/09/19 update)
+# Content (03/12/19 update)
 
 - [Database]
   - [MySQL]
