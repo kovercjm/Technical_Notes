@@ -7,6 +7,9 @@ A place for me to summarize my personal technical points during work and study.
   - [MySQL]
   - [PostgreSQL]
   - [Redis]
+- [Development Environment](https://github.com/KOVERcjm/Technical_Notes/tree/master/Development%20Environment)
+  - [MacOS environment](https://github.com/KOVERcjm/Technical_Notes/tree/master/Development%20Environment/MacOS%20environment.md)
+  - [VS Code Setting](https://github.com/KOVERcjm/Technical_Notes/tree/master/Development%20Environment/VS%20Code%20Setting.json)
 - [Docker]
 - [Java Programming]
   - [Java Virtual Machine (JVM)]
@@ -14,7 +17,6 @@ A place for me to summarize my personal technical points during work and study.
 - [Linux OS]
 - [Node.js Programming](https://github.com/KOVERcjm/Technical_Notes/tree/master/Node.js%20Programming)
   - [Axios network handler]
-  - (?) [Class]
   - [Promise using guide](https://github.com/KOVERcjm/Technical_Notes/blob/master/Node.js%20Programming/Promise%20using%20guide.md)
 - [Networking](https://github.com/KOVERcjm/Technical_Notes/tree/master/Networking)
   - [HTTP status code](https://github.com/KOVERcjm/Technical_Notes/blob/master/Networking/HTTP%20status%20code.md)
