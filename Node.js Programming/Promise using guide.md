@@ -61,10 +61,10 @@ save()
 The difference is subtle, but important. In the first example, an error originating in the save() operation will be caught, but an error originating in the handleSuccess() function will be swallowed.
 
 <div align=center>
-<img src=https://github.com/KOVERcjm/Technical_Notes/raw/master/Pictures/Promise%20using%20guide%20-%20with%20catch.png>
+<img src="https://raw.githubusercontent.com/KOVERcjm/Pictures/master/20191230154322.png"/>
 <br />
 Without .catch(), an error in the success handler is uncaught.
-<img src=https://github.com/KOVERcjm/Technical_Notes/raw/master/Pictures/Promise%20using%20guide%20-%20without%20catch.png>
+<img src="https://raw.githubusercontent.com/KOVERcjm/Pictures/master/20191230154345.png"/>
 <br />
 With .catch(), both error sources are handled.
 </div>

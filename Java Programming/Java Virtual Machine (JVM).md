@@ -1,6 +1,6 @@
 # 0 JVM的内存结构
 <div align=center>
-<img src=https://github.com/KOVERcjm/Technical_Notes/raw/master/Pictures/JVM%20-%20overall%20structure.png>
+<img src="https://raw.githubusercontent.com/KOVERcjm/Pictures/master/20191230154146.png"/>
 <br />
 JVM内存结构图例
 </div>
@@ -97,7 +97,7 @@ Java虚拟机通常通过建立一个根对象的集合，检查从这些根对�
 ### 2.2.2 Reachability Analysis- 可达性分析
 可达性分析算法的基本思路是通过GC Roots对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链（Reference Chain）。当一个对象到GC Roots没有任何引用链相连的时候，即从GC Roots到这个对象不可达时，则证明这个对象时不可用的，它们将被判定为可回收对象。
 <div align=center>
-<img src=https://github.com/KOVERcjm/Technical_Notes/raw/master/Pictures/JVM%20-%20GC%20reachability.png>
+<img src=https://raw.githubusercontent.com/KOVERcjm/Pictures/master/20191230153951.jpg>
 <br />
 可达性分析图例
 </div>

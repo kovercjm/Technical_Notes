@@ -18,7 +18,7 @@ There is a core specification with a set of optional additional support specific
 * OpenID Connect Federation – (Optional) Defines how sets of OPs and RPs can establish trust by utilizing a Federation Operator
 
 <div align=center>
-<img src=https://github.com/KOVERcjm/Technical_Notes/raw/master/Pictures/OIDC%20-%20specification%20diagram.png>
+<img src="https://raw.githubusercontent.com/KOVERcjm/Pictures/master/20191230154220.png"/>
 <br />
 OIDC Specification Diagram
 </div>
@@ -47,7 +47,7 @@ OIDC Specification Diagram
 
 In the diagram, ‘AuthN’ stands for ‘Authentication’ and ‘AuthZ’ stands for ‘Authorization’. A more detailed diagram is shown as followed.
 <div align=center>
-<img src=https://github.com/KOVERcjm/Technical_Notes/raw/master/Pictures/OIDC%20-%20request%20detail.png>
+<img src="https://raw.githubusercontent.com/KOVERcjm/Pictures/master/20191230154240.png"/>
 <br />
 </div>
 
