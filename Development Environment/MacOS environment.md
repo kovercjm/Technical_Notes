@@ -5,6 +5,10 @@ MacBook Pro (16-inch, 2019) + Magic Keyboard 2 + Magic Mouse 2
 MacOS Catalina Version 10.15.1
 
 # Software suggestion - Development
+## Command Line - Homebrew
+The Missing Package Manager for macOS. [Installation Guide](https://brew.sh), or just run the following.
+> /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 ## IDE - Virtual Studio Code
 Suitable for being an IDE & Markdown editor. [Installation](https://code.visualstudio.com/)
 
