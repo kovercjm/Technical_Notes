@@ -13,7 +13,6 @@ Response code | Meaning
 200 OK | Request been done. Return result.
 201 Created | Request been done. New resource been created.
 204 Accepted | Request accepted. No result.
-- | -
 400 Bad request | The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax or invalid request message framing
 401 Unauthorised | The request was valid, but the server is refusing action, specifically for use when authentication is required and has failed or has not yet been provided.
 403 Forbidden | The request was valid, but the server is refusing action.
