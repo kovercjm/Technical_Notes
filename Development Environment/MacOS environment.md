@@ -9,7 +9,12 @@ MacOS Catalina Version 10.15.1
 The Missing Package Manager for macOS. [Installation Guide](https://brew.sh), or just run the following.
 > /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+## Command Line - zsh
+
+Oh My Zsh is an open source, community-driven framework for managing your zsh configuration. [Installation](https://medium.com/statementdog-engineering/prettify-your-zsh-command-line-prompt-3ca2acc967f)
+
 ## IDE - Virtual Studio Code
+
 Suitable for being an IDE & Markdown editor. [Installation](https://code.visualstudio.com/)
 
 Plugin recommend:

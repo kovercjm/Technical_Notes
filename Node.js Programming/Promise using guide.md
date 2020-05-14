@@ -64,6 +64,7 @@ The difference is subtle, but important. In the first example, an error originat
 <img src="https://raw.githubusercontent.com/KOVERcjm/Pictures/master/20191230154322.png"/>
 <br />
 Without .catch(), an error in the success handler is uncaught.
+<br />
 <img src="https://raw.githubusercontent.com/KOVERcjm/Pictures/master/20191230154345.png"/>
 <br />
 With .catch(), both error sources are handled.
