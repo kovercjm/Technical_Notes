@@ -7,10 +7,11 @@ docker pull mongo
 # 2 Create container
 
 ``` shell
+# Auto restart: -- restart always
 # Port mapping: -p 27017:27017
 # DB files saved location: -v [location on PC]:/data/db
 # Authorize needed: --auth
-docker run --name mongodb -p 27017:27017 -v ~/WorkSpace/MongoDB:/data/db -d mongo:latest --auth
+docker run --name mongodb --restart always -p 27017:27017 -v ~/WorkSpace/MongoDB:/data/db -d mongo:latest --auth
 ```
 
 # 3 Create admin user
