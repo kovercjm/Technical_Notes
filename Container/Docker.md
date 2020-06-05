@@ -1,22 +1,43 @@
-# Docker introduction
+# 0 Introduction
 Docker is a computer program that performs operating-system-level virtualization, also known as 'containerization'.
 
-# Installation
-Follow the [official website](https://www.docker.com/get-started).
+# 1 Installation
+Follow the [official website](https://docs.docker.com/engine/install/).
 
-# Basic check
 Check for Docker version: 
-> docker --version 
+
+``` shell
+docker --version 
+```
 
 Check for Docker basic status:
-> docker info
 
-# Manage Docker containers
-## Create a container
+``` shell
+docker info
+```
+
+Avoid using `sudo docker` every time, run the following command to add a docker user group.
+
+``` shell
+# sudo groupadd docker							# Add docker group if not exist
+sudo usermod -aG docker your-user		# Add your-user to docker group
+newgrp docker												# Active change to docker group
+```
+
+# 2 Manage Docker containers
+
+## 2.1 Create a container
 Create a new container and run a command:
-> docker run [OPTIONS] IMAGE [COMMAND]
+
+``` shell
+docker run [OPTIONS] IMAGE [COMMAND]
+```
+
 Create a new container without running it:
-> docker create [OPTIONS] IMAGE [COMMAND]
+
+``` shell
+docker create [OPTIONS] IMAGE [COMMAND]
+```
 
 OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/run/): 
 * -d: Run as background task;
@@ -26,41 +47,92 @@ OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/run
 * --name="NAME": Assign a name to container;
 * --link=[]: Link to another container
 
-## Manage Docker containers
+## 2.2 Manage Docker containers
 Manage containers with name or ID:
-> docker start CONTAINER
-> docker stop CONTAINER
-> docker restart CONTAINER
-> docker rm CONTAINER
-> docker pause CONTAINER
-> docker unpause CONTAINER
 
-## Execute command in containers
+``` shell
+docker start CONTAINER
+docker stop CONTAINER
+docker restart CONTAINER
+docker rm CONTAINER
+docker pause CONTAINER
+docker unpause CONTAINER
+```
+
+## 2.3 Execute command in containers
+
 Execute command in running Docker container:
-> docker exec [OPTIONS] CONTAINER [COMMAND]
+
+``` shell
+docker exec [OPTIONS] CONTAINER [COMMAND]
+```
 
 OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/exec/): 
 * -d: Run as background task;
 * -i: Interactive mode, keep STDIN open;
 * -t: Allocate a terminal;
 
-## Listing
+## 2.4 Listing
 List out running containers:
-> docker container ls [OPTIONS]
+
+``` shell
+docker container ls [OPTIONS]
+```
 
 OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/container_ls/): 
 * -a: Show all;
 * -q: IDs only;
 
 List out images (hide intermediate images):
-> docker image ls [OPTIONS]
+
+``` shell
+docker image ls [OPTIONS]
+```
 
 OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/image_ls/): 
 * -a: Show all;
 * -q: IDs only;
 
-## Quick usage
+## 2.5 Quick usage
 Delete dangling images:
-> docker rmi $(docker images -f "dangling=true" -q)
+
+``` shell
+docker rmi $(docker images -f "dangling=true" -q)
+```
+
 Show Docker size:
-> docker system df
+
+``` shell
+docker system df
+```
+
+## 2.6 Save Docker image
+
+Save Docker image and load at another machine.
+
+``` shell
+docker save -o images.tar image1 image2
+docker load -i images.tar
+```
+
+# 3 Installation without Internet
+
+Following the [official guide](https://docs.docker.com/engine/install/ubuntu/#install-from-a-package).
+
+## 3.1 Preparation
+
+Assume running under Ubuntu 18.04 OS, download three `deb` [image](https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/) (`containerd.io`, `docker-ce-cli` and `docker-ce`), and save to external disk for installation.
+
+## 3.2 Install from deb image
+
+May mount the disk and copy the images to local folder first.
+
+Install Docker Engine with the following command, asuming the three images are all under `~/docker/`.
+
+``` shell
+sudo dpkg -i ~/docker/*.deb
+```
+
+## 3.3 Check installation
+
+Using the same command as [Chapter 1](#1), to check installation and can avoid using `sudo`.
