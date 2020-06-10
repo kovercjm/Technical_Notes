@@ -46,6 +46,8 @@ OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/run
 * -t: Allocate a terminal;
 * --name="NAME": Assign a name to container;
 * --link=[]: Link to another container
+* --restart: Restart policy to apply when a container exits
+* --rm: Automatically remove the container when it exits
 
 ## 2.2 Manage Docker containers
 Manage containers with name or ID:
@@ -105,6 +107,14 @@ Show Docker size:
 ``` shell
 docker system df
 ```
+
+Cleaning not used volume:
+
+``` shell
+docker volume rm $(docker volume ls -qf dangling=true)
+```
+
+
 
 ## 2.6 Save Docker image
 
