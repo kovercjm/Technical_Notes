@@ -7,7 +7,10 @@ MacOS Catalina Version 10.15.1
 # Software suggestion - Development
 ## Command Line - Homebrew
 The Missing Package Manager for macOS. [Installation Guide](https://brew.sh), or just run the following.
-> /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+``` shell
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
 
 ## Command Line - zsh
 
