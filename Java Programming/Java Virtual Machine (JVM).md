@@ -4,10 +4,14 @@
 <br />
 JVM内存结构图例
 </div>
+![Java Memory Model](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/jvm03-20200610165252836.png)
 
 # 1 Run-Time Data Areas- 运行时数据区域
+
 若干程序运行期间所使用到的运行时数据区域，包括程序计数器、堆、虚拟机栈、方法区和本地方法栈。这些区域所使用的内存可不连续，可调节初始固定/最大最小容量。
 Various run-time data areas that are used during the execution of a program, including PC register, heap, stack, method area and native method stack. The memory of areas does not need to be contiguous, and the initial fixed size or the maximum and minimum size may be chosen.
+
+![一文看懂JVM内存布局及GC原理](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/dd614bf56417939aa0e0694fedf2caa9.png)
 
 ## 1.1 Program Counter (PC) Register- 程序计数器
 Java虚拟机支持多线程，每条线程有自己的PC寄存器；任意时刻，一条线程只会执行一个方法（当前方法）的代码。
@@ -40,6 +44,7 @@ Associated exceptional conditions: [StackOverflowError] the computation in a thr
 # 2 Garbage Collection- 垃圾回收
 在运行时数据区域中，程序计数器、虚拟机栈和本地方法栈3个区域随线程而生灭；栈中的栈帧随方法的进出而出入栈；这几个区域的内存分配与回收具备确定性。而**堆**和**方法区**则不一样，只有在程序运行期间才能动态地分配这部分内存。通过垃圾回收机制，Java使开发者无需关注空间的创建与释放，在后台建立一个守护进程，保障程序正常运行。
 对垃圾回收以及内存分配的了解，可以为排查内存溢出、泄露问题时，或是垃圾回收成为了系统达到更高并发量的瓶颈时，对其实施必要的监控和调节的理论依据。
+
 > 本章总结自《深入理解Java虚拟机：JVM高级特性与最佳实践》、《深入Java虚拟机》以及知乎回答。
 
 ## 2.1 垃圾回收算法简述
@@ -88,7 +93,7 @@ public class Main
 
 ### 2.2.1 GC Roots- 根对象集合
 Java虚拟机通常通过建立一个根对象的集合，检查从这些根对象开始的可触及性来实现可达性分析。而Java虚拟机的根对象集合根据实现不同而不同，可作为GC Roots的对象包括下面几种：
- 
+
 - 虚拟机栈帧中的本地变量表中引用的对象
 - 方法区中类静态属性引用的对象
 - 方法区中常量引用的对象
@@ -96,11 +101,9 @@ Java虚拟机通常通过建立一个根对象的集合，检查从这些根对�
 
 ### 2.2.2 Reachability Analysis- 可达性分析
 可达性分析算法的基本思路是通过GC Roots对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链（Reference Chain）。当一个对象到GC Roots没有任何引用链相连的时候，即从GC Roots到这个对象不可达时，则证明这个对象时不可用的，它们将被判定为可回收对象。
-<div align=center>
-<img src=https://raw.githubusercontent.com/KOVERcjm/Pictures/master/20191230153951.jpg>
-<br />
-可达性分析图例
-</div>
+
+![一文看懂JVM内存布局及GC原理](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/754f1ab05e6527107cfd8578d98a80a4.png)
+
 
 ### 2.2.3 引用
 为定义这样一类对象：当内存空间还足够高时，则能保留在内存之中；如果内存空间在进行垃圾收集后还是非常紧张，则可以抛弃这些对象。因此，Java对引用的概念进行了扩充，引用强度依次递减：
@@ -123,15 +126,18 @@ Java虚拟机通常通过建立一个根对象的集合，检查从这些根对�
 ## 2.3 垃圾回收算法思想
 ### 2.3.1 Mark-Sweep- 标记-清除算法
 又称为Tracing算法，分为两个阶段：标记判定所有需要回收的对象，在标记完成之后统一回收所有被标记的对象。后续的收集算法都基于这种思路，并对其不足加以改善。其主要不足有二：一是两个过程的效率不高，二是清除之后会产生大量不连续的内存碎片。内存碎片太多可能会导致过程运行中需要分配较大对象时，无法找到足够的连续内存而不得不提前触发另一次垃圾收集。
-![标记-清除算法图例](http://localhost:9000/api/file/getImage?fileId=5c886336286ddd0d7600000a)
+
+![标记-清除算法图例](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/gc2.png)
 
 ### 2.3.2 Copying- 复制算法
 为解决效率问题，复制算法将可用内存按容量分为大小相等的两块，每次只使用其中的一块。当这一块用完了，将还存活的对象复制到另一块上，再把已经使用过的那块内存空间一次清理掉。这样内存分配的时候不用考虑内存碎片等复杂情况，只要移动对顶指针，按顺序分配内存即可。这种算法实现简单运行高效，代价是将内存缩小一半。使用场景必须是对象存活率非常低才行。
-![复制算法图例](http://localhost:9000/api/file/getImage?fileId=5c89d9a1286ddd0d7600000c)
+
+![复制算法图例](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/gc3.png)
 
 ### 2.3.3 Mark-Compacting- 标记-整理算法
 标记整理算法中，标记过程与“标记-清理”算法相同，但后续步骤是让所有蔗对象向一端移动，直接清理掉端边界以外的内存。
-![标记-整理算法图例](http://localhost:9000/api/file/getImage?fileId=5c89d9a1286ddd0d7600000f)
+
+![标记-整理算法图例](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/gc4.png)
 
 ### 2.3.4 Generational Collection- 分代收集算法
 当前商业虚拟机都使用分代收集算法。这种算法根据对象存活周期，将内存划分为几块，根据各个年代的特点来财去最适当的收集算法。
@@ -144,8 +150,10 @@ Java堆空间一般被分为三个部分，用以存储三类数据：
 - 持久代（Permanent Generation，Java 8以后改为元空间metaspace）：静态文件，如Java类、方法等。
 
 结合各个部分的特点，在新生代中将采取复制算法，在老年代中采取标记-整理算法。在新生代中，内存被分为三个部分：Eden区、From Survivor区和To Survivor区，默认比例为8:1:1。
-![分代回收机制图例](http://localhost:9000/api/file/getImage?fileId=5c89d9a1286ddd0d7600000e)
+
+![一文看懂JVM内存布局及GC原理](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/e4ff361d409b6939e6da49a06b6dc677.png)
 分代回收机制工作原理如下：
+
 1. Eden区对外提供堆内存，新创建的对象将被存储至Eden区；
 2. 如果新创建的对象过大，将会直接被存储至老年代；
 3. 当Eden区满、或达到一定比例时，触发**Minor GC**，将Eden区与From Survivor区（如果有）内的存活对象复制到To Survivor区；
@@ -166,14 +174,17 @@ Java堆空间一般被分为三个部分，用以存储三类数据：
 
 ## 2.6 垃圾回收器
 ### 2.6.1 Serial收集器
+
 Serial收集器是一个单线程收集器，在JVM需要进行垃圾回收的时候，需暂停所有的用户线程等待回收结束（Stop-The-World）。它的优点是简单高效，在单CPU环境中，由于没有线程交互的开销，可以获得最高的单线程收集效率，适用于Client模式的虚拟机。
 Serial Young / Serial Old收集器运行示意图：
-![Serial收集器图例](http://localhost:9000/api/file/getImage?fileId=5c8a4871286ddd0d76000013)
+
+![Serial收集器图例](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/6c281cf0.png)
 
 ### 2.6.2 ParNew收集器
 ParNew收集器是Serial收集器的多线程版本，除了使用多线程之外，回收策略等各方面与Serial收集器一样。它是运行在Server模式下的虚拟机首选的新生代收集器，目前只有它和Serial收集器能配合CMS收集器工作。
 ParNew / Serial Old收集器运行示意图：
-![ParNew收集器图例](http://localhost:9000/api/file/getImage?fileId=5c8a4871286ddd0d76000015)
+
+![ParNew收集器图例](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/75122b84.png)
 
 ### 2.6.3 Parallel收集器
 Parallel Scavenge收集器是一个新生代收集器，也是使用复制算法的并行多线程收集器；特点是达到一个可控制的吞吐量。吞吐量 = 运行用户代码时间 / (运行用户代码时间 + 垃圾收集时间)。而高吞吐量比较适用于在后台运算而不需要太多交互的任务。虚拟机会根据当前系统的运行情况收集性能监控信息，动态调整这些参数以提供最适合的停顿时间或最大的吞吐量，这种调节方式被称为GC自适应调节策略（GC Ergonomics）。
@@ -181,10 +192,13 @@ Parallel Scavenge收集器是一个新生代收集器，也是使用复制算法
 ### 2.6.4 Serial Old收集器
 Serial Old是Serial收集器的老年代版本，同样是单线程收集器，使用标记-整理算法。主要给Client模式下的虚拟机使用；在Server模式下，可以与Parallel Scavenge收集器搭配使用，还可以作为CMS收集器的后备预案。
 
+![Serial Old收集器图例](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/6c281cf0-20200610165613699.png)
+
 ### 2.6.5 Parallel Old收集器
 Parallel Old是一个老年代并行收集器，以吞吐量优先。
 Parallel Scavenge / Parallel Old收集器运行示意图：
-![Parallel收集器图例](http://localhost:9000/api/file/getImage?fileId=5c8a4871286ddd0d76000011)
+
+![Parallel收集器图例](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/b1800d45.png)
 
 ### 2.6.6 CMS收集器
 CMS（Concurrent Mark Sweep）收集器是以牺牲吞吐量为代价来获得最短回收停顿时间的垃圾回收器，适用于对停顿比较敏感，并且有相对较多存活时间较长的对象(老年代较大)的应用程序。CMS 虽然减少了回收的停顿时间，但是降低了堆空间的利用率。由于采用了 Mark-Sweep 算法，因此经过 CMS 收集的堆会产生空间碎片；为了解决堆空间浪费问题，CMS 回收器不再采用简单的指针指向一块可用堆空间来为下次对象分配使用。而是把一些未分配的空间汇总成一个列表，当 JVM 分配对象空间的时候，会搜索这个列表找到足够大的空间来存放住这个对象。其工作步骤如下：
@@ -196,7 +210,7 @@ CMS（Concurrent Mark Sweep）收集器是以牺牲吞吐量为代价来获得�
 - 并发清理(Concurrent sweeping)：清理垃圾对象，这个阶段回收器线程和应用程序线程并发执行。
 - 并发重置(Concurrent reset)：这个阶段，重置 CMS 回收器的数据结构，等待下一次垃圾回收。
 CMS收集器运行示意图：
-![CMS收集器图例](http://localhost:9000/api/file/getImage?fileId=5c8a4871286ddd0d76000014)
+![CMS收集器图例](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/f60599b2.png)
 其缺点是：
 
 - 对CPU资源敏感
@@ -205,7 +219,7 @@ CMS收集器运行示意图：
 
 ### 2.6.7 G1
 G1（Garbage-First）收集器首先将堆分为大小相等的 Region，避免全区域的垃圾收集，然后追踪每个 Region 垃圾堆积的价值大小，在后台维护一个优先列表，根据允许的收集时间优先回收价值最大的 Region；同时 G1 GC 采用 Remembered Set 来存放 Region 之间的对象引用以及其他回收器中的新生代与老年代之间的对象引用，从而避免全堆扫描。G1分区示例如下所示：
-![G1分区图例](http://localhost:9000/api/file/getImage?fileId=5c8a4871286ddd0d76000012)
+![G1分区图例](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/0bce1667.png)
 一个region有可能属于Eden，Survivor或者Tenured内存区域。图中的E表示该region属于Eden内存区域，S表示属于Survivor内存区域，T表示属于Tenured内存区域。图中空白的表示未使用的内存空间。G1垃圾收集器还增加了一种新的内存区域，叫做Humongous内存区域，如图中的H块。这种内存区域主要用于存储大对象-即大小超过一个region大小的50%的对象。
 总结而言，G1收集器的特性如下：
 
@@ -214,9 +228,6 @@ G1（Garbage-First）收集器首先将堆分为大小相等的 Region，避免�
 - 空间整理：从整体来看，G1是基于标记-整理算法实现的，从两个Region的局部来看是基于复制算法实现的；这意味着G1算法不会产生内存空间碎片；
 - 可预见性：G1 建立可预存停顿的模型，这样在用户设置的停顿时间范围内，G1 会选择适当的区域进行收集，确保停顿时间不超过用户指定时间。
 
-G1收集器在逻辑新生代上的工作步骤如图所示：
-![G1收集器图例1](http://localhost:9000/api/file/getImage?fileId=5c8b11c7286ddd0d76000017)
-
 G1收集器不计维护Remembered Set的整体工作步骤如下：
 
 - 初始标记（Initial Mark）：标记GC Roots能直接关联的对象，修改TAMS（Next Top at Mark Start）值以便下一阶段用户程序并发运行时在可用Region中创建新对象，需要Stop-The-World，但耗时很短；
@@ -224,9 +235,6 @@ G1收集器不计维护Remembered Set的整体工作步骤如下：
 - 最终标记（Remark）：为了修正并发标记期间产生变动的那一部分标记记录，期间的变化记录在Remembered Set Log里，然后合并到Remembered Set里，该阶段需要Stop-The-World，但是可并行执行；
 - 筛选回收（Clean up / Copy）：对各个Region回收价值和成本排序，根据用户期望的停顿时间制定回收计划来回收。筛选回收如下图所示：
  ![G1收集器筛选回收图例](http://localhost:9000/api/file/getImage?fileId=5c8b11c7286ddd0d76000018)
-
-G1收集器逻辑运行步骤如下图所示：
-![G1收集器图例](http://localhost:9000/api/file/getImage?fileId=5c8b11c7286ddd0d7600001a)
 
 ### 2.6.8 回收器触发时机
 - Serial Old与Parallel Old的触发是在要执行Young GC时预测其产生的即将升为老生代对象的大小超过老生代剩余大小；
@@ -239,7 +247,7 @@ G1收集器逻辑运行步骤如下图所示：
 - Parallel GC 适合最大化应用程序吞吐量的场景；
 - CMS GC 适合最小化中断或停顿时间的场景。
 下图显示了多种垃圾回收器之间的关系。如果两个收集器之间存在连线，则说明它们可以搭配使用。
-![垃圾收集器总结图例](http://localhost:9000/api/file/getImage?fileId=5c89d9a1286ddd0d76000010)
+![一文看懂JVM内存布局及GC原理](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/ab1c7be2fa4b5d180ffa1f43bf9dfce7-20200610170116481.png)
 
 ----------
 
@@ -262,9 +270,9 @@ Java虚拟机规范严格规定了有且仅有的5种必须立即对类进行**�
 - 当使用JDK 1.7的动态语言支持时，如果一个java.lang.invoke.MethodHandle实例最后的解析结果REF_getStatic、REF_putStatic、REF_invokeStatic的方法句柄，并且这个方法句柄所对应的类没有进行过初始化，则需要先触发其初始化。
 
 ## 3.3 类加载的过程
-![类加载过程图例](http://localhost:9000/api/file/getImage?fileId=5c8ddac9286ddd0d7600001c)
+![类加载过程图例](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/20200610170157.png)
 
-### 3.3.1 Loading- 加载
+### 3.3.1 Loading - 加载
 在加载阶段，虚拟机需要完成以下3件事情：
 
 - 通过一个类的全限定名来获取此类的二进制字节流；
@@ -275,7 +283,7 @@ Java虚拟机规范严格规定了有且仅有的5种必须立即对类进行**�
 类加载过程中，非数组类的加载阶段是开发人员可控性最强的，既可以使用系统提供的引导类加载器来完成，也可以由用户自定义的类加载器去完成。而数组类本身不通过类加载器创建，而是由JVM直接创建，但数组元素类型由类加载器来创建。
 加载阶段完成后，class类就按照格式存储在方法区中，并在内存中存在一个实例化的java.lang.Class类的对象，作为程序访问方法区中这些类型数据的外部接口。
 
-### 3.3.2 Verification- 验证
+### 3.3.2 Verification - 验证
 验证作为连接阶段的第一步，目的是为了确保class文件字节流中包含的信息符合虚拟机要求，并且不会危害虚拟机自身安全。整体来看，验证阶段完成四个阶段的检验：
 
 - 文件格式验证：对class文件的二进制流数据进行验证，是否符合文件规范（魔数，版本号，常量，常量索引等）；只有通过验证的数据才能将流数据存储在方法区中；
@@ -283,7 +291,7 @@ Java虚拟机规范严格规定了有且仅有的5种必须立即对类进行**�
 - 字节码验证：通过数据流和控制流分析，对类的方法体进行验证，确认语义合法，比如跳转语句不能越界，类型转换的正确性等；即使通过了验证，也不能完全保证代码绝对安全；
 - 符号引用的验证：发生在虚拟机将符号引用转换为直接引用的时候（解析阶段），即是对类自身以外的信息（常量池中的符号引用）进行匹配性的校验；如，通过全限定名能否找到对应的类，类中是否存在符合方法字段描述的方法或字段，符号引用的类方法或字段的访问性是否可以被当前类访问等；目的是确保解析动作的正常执行；
 
-### 3.3.3 Preparation- 准备
+### 3.3.3 Preparation - 准备
 准备阶段为类的静态变量在方法区中分配内存，并将其初始化为默认值。基本数据类型的零值如下：
 数据类型|零 值   |数据类型|零 值  |数据类型 |零 值   |
 --------|--------|--------|-------|---------|--------|
@@ -291,16 +299,44 @@ int     |0       |long    |0L     |short    |(short)0
 char    |'\u0000'|byte    |(byte)0|boolean  |false
 float   |0.0f    |double  |0.0d   |reference|null
 
-### 3.3.4 Resolution- 解析
+### 3.3.4 Resolution - 解析
 解析是虚拟机将常量池内的符号引用替换成直接引用的过程，一般包括类或接口，字段，类方法，接口方法四种符号引用。
 
 - 符号引用：即一个字符串，给出了能够唯一性识别一个方法，一个变量，一个类的相关信息。符号引用与虚拟机实现的内存布局无关，引用的目标不一定已经加载在内存中了；
 - 直接引用：可以是直接指向目标对象的指针，相对偏移量或者是一个能间接定位到目标的句柄；与虚拟机的内存分布是相关的，引用的目标一定在内存中已经存在了；比如类方法，类变量的直接引用是指向方法区的指针；而实例方法，实例变量的直接引用则是从实例的头指针开始算起到这个实例变量位置的偏移量。
 
-### 3.3.5 Initialization- 初始化
+### 3.3.5 Initialization - 初始化
 
+初始化为类的静态变量赋予正确的初始值，JVM负责对类进行初始化，主要对类变量进行初始化。在Java中对类变量进行初始值设定有两种方式：
 
-## 3.4 
+1. 声明类变量是指定初始值
+2. 使用静态代码块为类变量指定初始值
+
+JVM初始化步骤
+
+1. 假如这个类还没有被加载和连接，则程序先加载并连接该类
+2. 假如该类的直接父类还没有被初始化，则先初始化其直接父类
+3. 假如类中有初始化语句，则系统依次执行这些初始化语句
+
+类初始化时机——只有当对类的主动使用的时候才会导致类的初始化，类的主动使用包括以下六种：
+
+- 创建类的实例，也就是new的方式
+- 访问某个类或接口的静态变量，或者对该静态变量赋值
+- 调用类的静态方法
+- 反射（如`Class.forName(“com.shengsiyuan.Test”)`）
+- 初始化某个类的子类，则其父类也会被初始化
+- Java虚拟机启动时被标明为启动类的类（`Java Test`），直接使用`java.exe`命令来运行某个主类
+
+### 3.3.6 结束生命周期
+
+在如下几种情况下，Java虚拟机将结束生命周期
+
+- 执行了`System.exit()`方法
+- 程序正常执行结束
+- 程序在执行过程中遇到了异常或错误而异常终止
+- 由于操作系统出现错误而导致Java虚拟机进程终止
+
+## 3.4 类加载器
 
 ----------
 
@@ -345,5 +381,6 @@ class Derived extends Base
 }
 ```
 # 5 引用及相关链接
-> 第一章引用自*《Java虚拟机规范》*。
-> The first chapter referred to *The Java Virtual Machine Specification*.
+第一章引用自*《Java虚拟机规范》*。
+
+第二、三章部分引用自“[纯洁的微笑](http://www.ityouknow.com/)”博客。
