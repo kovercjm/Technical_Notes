@@ -4,19 +4,14 @@ Docker is a computer program that performs operating-system-level virtualization
 # 1 Installation
 Follow the [official website](https://docs.docker.com/engine/install/).
 
-Check for Docker version: 
+Check for Docker version and basic status: 
 
 ``` shell
-docker --version 
-```
-
-Check for Docker basic status:
-
-``` shell
+docker --version
 docker info
 ```
 
-Avoid using `sudo docker` every time, run the following command to add a docker user group.
+To avoid using `sudo docker` every time, run the following command to add a docker user group.
 
 ``` shell
 # sudo groupadd docker							# Add docker group if not exist
@@ -44,10 +39,9 @@ OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/run
 * -p: Port forwarding, format: 'HOSTPORT:CONTAINERPORT';
 * -i: Interactive mode, keep STDIN open;
 * -t: Allocate a terminal;
-* --name="NAME": Assign a name to container;
-* --link=[]: Link to another container
-* --restart: Restart policy to apply when a container exits
-* --rm: Automatically remove the container when it exits
+* --name NAME: Assign a name to container;
+* --restart: Restart policy to apply when a container exits;
+* --rm: Automatically remove the container when it exits;
 
 ## 2.2 Manage Docker containers
 Manage containers with name or ID:
@@ -57,8 +51,6 @@ docker start CONTAINER
 docker stop CONTAINER
 docker restart CONTAINER
 docker rm CONTAINER
-docker pause CONTAINER
-docker unpause CONTAINER
 ```
 
 ## 2.3 Execute command in containers
@@ -69,29 +61,16 @@ Execute command in running Docker container:
 docker exec [OPTIONS] CONTAINER [COMMAND]
 ```
 
-OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/exec/): 
-* -d: Run as background task;
-* -i: Interactive mode, keep STDIN open;
-* -t: Allocate a terminal;
-
+OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/exec/), similar to [Create container](#2.1).
 ## 2.4 Listing
-List out running containers:
+List out running containers or images:
 
 ``` shell
 docker container ls [OPTIONS]
+docker images [OPTIONS]
 ```
 
 OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/container_ls/): 
-* -a: Show all;
-* -q: IDs only;
-
-List out images (hide intermediate images):
-
-``` shell
-docker image ls [OPTIONS]
-```
-
-OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/image_ls/): 
 * -a: Show all;
 * -q: IDs only;
 
@@ -125,24 +104,5 @@ docker save -o images.tar image1 image2
 docker load -i images.tar
 ```
 
-# 3 Installation without Internet
+# 3 Compile an Docker image
 
-Following the [official guide](https://docs.docker.com/engine/install/ubuntu/#install-from-a-package).
-
-## 3.1 Preparation
-
-Assume running under Ubuntu 18.04 OS, download three `deb` [image](https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/) (`containerd.io`, `docker-ce-cli` and `docker-ce`), and save to external disk for installation.
-
-## 3.2 Install from deb image
-
-May mount the disk and copy the images to local folder first.
-
-Install Docker Engine with the following command, asuming the three images are all under `~/docker/`.
-
-``` shell
-sudo dpkg -i ~/docker/*.deb
-```
-
-## 3.3 Check installation
-
-Using the same command as [Chapter 1](#1), to check installation and can avoid using `sudo`.
