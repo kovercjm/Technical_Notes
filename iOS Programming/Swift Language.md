@@ -40,10 +40,9 @@ Several points to be noted:
 
   ``` swift
   let i = 1
-  if i {							// It will not compile and report an error
-  }
+  if i { }						// This cannot compile and will report an error
   ```
-
+  
 - Tuple can contain different types and can be decomposed.
 
   ``` swift
