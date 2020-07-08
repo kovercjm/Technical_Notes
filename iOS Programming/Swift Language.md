@@ -283,6 +283,103 @@ if #available(platform name & version, ..., *) {
 }
 ```
 
+# 6 Functions
+
+## 6.1 Function Parameters
+
+A function has a name, and can have or have no input and output parameter(s). Parameter can have Argument Labels before its name, or have Omitting Arugument Label (`_`). And also, parameter can have default value. The output parameter can be a tuple for multiple output results.
+
+``` swift
+func noParamFunc() { }
+func multiParamFunc(oneParam: String, _ twoParam: String, and threeParam: String, fourParam: Int = 4) -> (Int, Int){ }
+let (a, b) = multiParamFunc(oneParam: "one", "two", and: "three")
+```
+
+Function can have one and only one Variadic Parameter and also In-Out Parameters.
+
+``` swift
+func variadicParam(numbers: Int...) { }
+variadicParam(numbers: [1, 2, 3])
+
+func inOutParam(_ a: inout Int, _ b: inout Int) {
+  let temp = a; a = b; b = temp;
+}
+var a = 1, b = 2
+inOutParam(&a, &b)				// now a equals to 2 and b equals to 1
+```
+
+
+
+## 6.2 Function Types
+
+Function types just like any other types in Swift.
+
+``` swift
+var newFunction: (Int, Int) -> Int = oldFunction
+
+func funcParam(_ function: (Int, Int) -> Int) -> (Int) -> Int { }
+```
+
+If functions are defined inside the bodies of other functions, known as *nested functions*, they are hidden from the outside world by default. An enclosing function can also return one of its nested functions to allow the nested function to be used in another scope.
+
+``` swift
+func chooseStepFunction(backward: Bool) -> (Int) -> Int {
+    func stepForward(input: Int) -> Int { return input + 1 }
+    func stepBackward(input: Int) -> Int { return input - 1 }
+    return backward ? stepBackward : stepForward
+}
+var currentValue = -2
+let moveNearerToZero = chooseStepFunction(backward: currentValue > 0)
+// moveNearerToZero now refers to the nested stepForward() function
+while currentValue != 0 {
+    print("\(currentValue)... ")
+    currentValue = moveNearerToZero(currentValue)
+}
+print("zero!")
+// -2...
+// -1...
+// zero!
+```
+
+# 7 Closures
+
+Global and nested functions are actually special cases of closures. Closures take one of three forms:
+
+- Global functions are closures that have a name and don’t capture any values.
+- Nested functions are closures that have a name and can capture values from their enclosing function.
+- Closure expressions are unnamed closures written in a lightweight syntax that can capture values from their surrounding context.
+
+# 9 Structures and Classes
+
+Structures and classes in Swift have many things in common. Both can:
+
+- Define properties to store values
+- Define methods to provide functionality
+- Define subscripts to provide access to their values using subscript syntax
+- Define initializers to set up their initial state
+- Be extended to expand their functionality beyond a default implementation
+- Conform to protocols to provide standard functionality of a certain kind
+
+Classes have additional capabilities that structures don’t have:
+
+- Inheritance enables one class to inherit the characteristics of another.
+- Type casting enables you to check and interpret the type of a class instance at runtime.
+- Deinitializers enable an instance of a class to free up any resources it has assigned.
+- Reference counting allows more than one reference to a class instance.
+
+## 9.1 Structures and Enumerations Are Value Types
+
+A *value type* is a type whose value is *copied* when it’s assigned to a variable or constant, or when it’s passed to a function.
+
+## 9.2 Classes Are Reference Types
+
+Unlike value types, *reference types* are *not* copied when they are assigned to a variable or constant, or when they are passed to a function. Rather than a copy, a reference to the same existing instance is used.
+
+Swift provides two identity operators to find out whether two constants or variables refer to exactly the same instance of a class:
+
+- Identical to (`===`)
+- Not identical to (`!==`)
+
 # 10 Properties
 
 Property association:
