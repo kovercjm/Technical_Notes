@@ -93,6 +93,13 @@ Cleaning not used volume:
 docker volume rm $(docker volume ls -qf dangling=true)
 ```
 
+Cleaning all images and containers: 
+
+``` shell
+docker rmi $(docker images -q)
+docker rm $(docker ps -aq)
+```
+
 
 
 ## 2.6 Save Docker image
