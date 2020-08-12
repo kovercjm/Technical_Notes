@@ -111,5 +111,3 @@ docker save -o images.tar image1 image2
 docker load -i images.tar
 ```
 
-# 3 Compile an Docker image
-
