@@ -75,11 +75,6 @@ OPTIONS [explainations](https://docs.docker.com/engine/reference/commandline/con
 * -q: IDs only;
 
 ## 2.5 Quick usage
-Delete dangling images:
-
-``` shell
-docker rmi $(docker images -f "dangling=true" -q)
-```
 
 Show Docker size:
 
@@ -87,20 +82,25 @@ Show Docker size:
 docker system df
 ```
 
-Cleaning not used volume:
+Retrive space:
 
 ``` shell
+docker system prune
+```
+
+Delete dangling image and volume:
+
+``` shell
+docker rmi $(docker images -f "dangling=true" -q)
 docker volume rm $(docker volume ls -qf dangling=true)
 ```
 
-Cleaning all images and containers: 
+Remove all images and containers: 
 
 ``` shell
 docker rmi $(docker images -q)
 docker rm $(docker ps -aq)
 ```
-
-
 
 ## 2.6 Save Docker image
 
@@ -110,4 +110,3 @@ Save Docker image and load at another machine.
 docker save -o images.tar image1 image2
 docker load -i images.tar
 ```
-
