@@ -1,20 +1,42 @@
-# Hardware devices
-MacBook Pro (16-inch, 2019) + Magic Keyboard 2 + Magic Mouse 2
-
 # Operating system
-MacOS Catalina Version 10.15.1
+macOS Big Sur - Version 11.2.3
 
 # Software suggestion - Development
 ## Command Line - Homebrew
-The Missing Package Manager for macOS. [Installation Guide](https://brew.sh), or just run the following.
+The Missing Package Manager for macOS. Install from [Official Guide](https://brew.sh) or just run the following.
 
 ``` shell
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-## Command Line - zsh
+## Command Line - iTerm2 customization
 
-Oh My Zsh is an open source, community-driven framework for managing your zsh configuration. [Installation](https://medium.com/statementdog-engineering/prettify-your-zsh-command-line-prompt-3ca2acc967f)
+Terminal emulator for macOS. Download from [Homepage](https://iterm2.com/) or just run the following.
+
+``` shell
+brew install iterm2
+```
+
+Install `Sauce Code Pro Nerd Font` from [Official Website](https://www.nerdfonts.com/font-downloads).
+
+Oh My Zsh is an open source, community-driven framework for managing your zsh configuration. Install [oh-my-zsh](https://ohmyz.sh/) and [theme](https://iterm2colorschemes.com/) by the following command.
+
+``` shell
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+brew install romkatv/powerlevel10k/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+Change oh-my-zsh theme in `~/.zshrc` file ([reference](https://github.com/romkatv/powerlevel10k#batteries-included)), and run `exec $SHELL`to take effect:
+
+``` shell
+ZSH_DISABLE_COMPFIX="true"
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time)
+DEFAULT_USER="kover"
+```
 
 ## IDE - Virtual Studio Code
 
@@ -73,3 +95,4 @@ Powerful app to open RAR on Mac. [Installation](https://theunarchiver.com/)
 # Software suggestion - Entertainment
 ## IINA
 Powerful Media player. [Installation](https://iina.io/)
+
