@@ -64,4 +64,3 @@ Download [official addons](https://github.com/istio/istio/tree/master/samples/ad
 ``` shell
 kubectl apply -f addons/
 ```
-
