@@ -1,5 +1,5 @@
 # Operating system
-macOS Big Sur - Version 11.2.3
+macOS Big Sur
 
 # Software suggestion - Development
 ## Command Line - Homebrew
@@ -17,7 +17,7 @@ Terminal emulator for macOS. Download from [Homepage](https://iterm2.com/) or ju
 brew install iterm2
 ```
 
-Install `Sauce Code Pro Nerd Font` from [Official Website](https://www.nerdfonts.com/font-downloads).
+Install `FiraCode Nerd Font` from [Official Website](https://www.nerdfonts.com/font-downloads).
 
 Oh My Zsh is an open source, community-driven framework for managing your zsh configuration. Install [oh-my-zsh](https://ohmyz.sh/) and [theme](https://iterm2colorschemes.com/) by the following command.
 
@@ -27,16 +27,7 @@ brew install romkatv/powerlevel10k/powerlevel10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
-Change oh-my-zsh theme in `~/.zshrc` file ([reference](https://github.com/romkatv/powerlevel10k#batteries-included)), and run `exec $SHELL`to take effect:
-
-``` shell
-ZSH_DISABLE_COMPFIX="true"
-
-ZSH_THEME="powerlevel10k/powerlevel10k"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time)
-DEFAULT_USER="kover"
-```
+Restart terminal and run `p10k configure` to config the theme.
 
 ## IDE - Virtual Studio Code
 
@@ -54,7 +45,33 @@ Note: Community version is free, but Ultimate version is not.
 ## Text editor - Sublime Text 3
 A sophisticated text editor for coding. [Installation](https://www.sublimetext.com/)
 
+## Markdown editor - Typora
+
+A seamless experience as both a markdown reader and writer. [Installation](https://typora.io/)
+
+Theme recommended: [Fluent](https://theme.typora.io/theme/Fluent/), with related [font installation](https://github.com/HereIsLz/Fluent-Typora#-installation).
+
+Picture uploader [picgo-core](https://support.typora.io/Upload-Image/#picgo-core-command-line-opensource), setting to [use GitHub Repo](https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A), sample config as below.
+
+``` json
+{
+  "picBed": {
+    "uploader": "github",
+    "current": "github",
+    "github":{
+      "repo": "KOVERcjm/Pictures", // 仓库名，格式是username/reponame
+      "token": "", // github token
+      "path": "", // 自定义存储路径，比如img/
+      "customUrl": "", // 自定义域名，注意要加http://或者https://
+      "branch": "master" // 分支名，默认是main
+    }
+  },
+  "picgoPlugins": {}
+}
+```
+
 ## Container - Docker
+
 A light package software for development, shipment and development. [Installation](https://www.docker.com/)
 
 ## Source control - GitHub Desktop
@@ -94,5 +111,5 @@ Powerful app to open RAR on Mac. [Installation](https://theunarchiver.com/)
 
 # Software suggestion - Entertainment
 ## IINA
-Powerful Media player. [Installation](https://iina.io/)
+Powerful Media player. [Installation](https://github.com/iina/iina/releases)
 
