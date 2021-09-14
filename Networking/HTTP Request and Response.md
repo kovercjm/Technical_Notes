@@ -1,4 +1,20 @@
+# HTTP request header
+
+- Accept: one or more MIME value that client can accept
+- Cookie
+- Referer: where the request come from
+
+# HTTP request method
+
+> GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, PATCH
+
+Difference between GET and POST is in some browser:
+
+- GET sends Request header with body at once;
+- POST sends header, gets `100 Continue`, and then send body
+
 # HTTP response status code
+
 The first digit of the status code specifies one of five standard classes of responses. All HTTP response status codes are separated into five classes (or categories). The first digit of the status code defines the class of response. The last two digits do not have any class or categorization role. There are five values for the first digit:
 
  - 1xx (Informational): The request was received, continuing process
