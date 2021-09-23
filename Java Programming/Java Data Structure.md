@@ -11,3 +11,14 @@ Java HashMap is storing data by arrays and linked list. The index of array is ca
 When a linked list has more than 8 nodes, the list will be transferred into a red-black tree.
 
 HashMap is not thread-safe, and the thread-safe version can use ConcurrentHashMap. When concurrently used HashMap, can cause dead loop by `get()`, because when resizing two threads can be creating the same thread at the same time and then caused a loop in linked list.
+
+# ConcorrentHashMap
+
+Using CAS + synchronized to maintain concurrency.
+
+# CopyOnWriteArrayList
+
+Concorrent read on old list; copy a list for modify and point to the new one if finished modification.
+
+Problem: can cost lots of memory and can only maintain Eventual Consistency but not Real-time Consistency.
+
