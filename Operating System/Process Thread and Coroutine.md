@@ -35,3 +35,29 @@
   - Mutual exclusion (Mutex): awake for available lock 
   - Condition Variable: check only when condition changed
   - Readers-writer Lock: allow multi reader and lock if has one writer
+
+# Thread Kinds
+
+- User Thread - invisiable to system kernel
+  - Pro: Program controls the switch, it is simple;
+  - Pro: Swtiching will cost less;
+  - Con: Will be blocking the process when one thread is blocked;
+  - Con: Cannot make full use of multi-core of CPUs.
+- KSE (Kernel Scheduling Entity)
+  - Pro: Switch controls by kernel, takes advantage of multi-core;
+  - Pro: Will not block the process when one thread is blocked;
+  - Con: Switching will cost more;
+  - Con: Kernel threads are limited.
+
+# Thread Model
+
+- M:1 - M user thread to 1 KSE - Python
+  - Easy to control threads, fast in switching;
+  - One thread will block others;
+  - Controlled by program
+- 1:1 - 1 user thread to 1 KSE - Java
+  - Threads will not block others;
+  - Switching will cost much;
+  - As kernel threads are limited, lots of threads will affect performance
+- M:N - M user thead to N KSE - Go
+

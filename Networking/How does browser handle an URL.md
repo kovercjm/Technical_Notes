@@ -2,7 +2,7 @@
 
 ![HTTP Transaction 3](https://assets-global.website-files.com/5babb9f91ab233ff5f53ce10/606582264e32b2082d216858_persistent1.png)
 
-1. Resolve IP address from DNS;
+1. Resolve IP address from DNS (browser, computer, router, ISP);
 2. Establish TCP connection;
 3. Send HTTP request;
 4. Requested been handled, and Response been returned;

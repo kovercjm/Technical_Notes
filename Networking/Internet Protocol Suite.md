@@ -1,10 +1,33 @@
-# HTTP request header
+# OSI model and TCP/IP model
+
+![img](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/1560635630710-comparison-of-osi-and-tcpip.jpg)
+
+![TCP-IP](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/tcp_ip-20210925173958960.png)
+
+# TCP vs. UDP
+
+| TCP                 | UDP              |
+| ------------------- | ---------------- |
+| connection-oriented | message-oriented |
+| reliable            | unreliable       |
+
+- TCP has sliding window flow control;
+- TCP has congestion control algorithms, like slow-start, congestion avoidance, fast retransmit and fast recovery;
+
+# Keep-alive Connection
+
+- HTTP keep-alive connection, like DB connection
+- Normal API call don't 'keep alive'
+
+# HTTP
+
+## Common request header
 
 - Accept: one or more MIME value that client can accept
 - Cookie
 - Referer: where the request come from
 
-# HTTP request method
+## Common request method
 
 > GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, PATCH
 
@@ -13,7 +36,7 @@ Difference between GET and POST is in some browser:
 - GET sends Request header with body at once;
 - POST sends header, gets `100 Continue`, and then send body
 
-# HTTP response status code
+## Common response status code
 
 The first digit of the status code specifies one of five standard classes of responses. All HTTP response status codes are separated into five classes (or categories). The first digit of the status code defines the class of response. The last two digits do not have any class or categorization role. There are five values for the first digit:
 
@@ -23,7 +46,7 @@ The first digit of the status code specifies one of five standard classes of res
  - 4xx (Client Error): The request contains bad syntax or cannot be fulfilled
  - 5xx (Server Error): The server failed to fulfill an apparently valid request
 
-# Common codes and its meaning
+### Code meaning
 Response code | Meaning
 ------------- | -------
 200 OK | Request been done. Return result.
@@ -35,3 +58,12 @@ Response code | Meaning
 404 Not found | Requested resources not found.
 409 Conflict | Conflict of editing the same resource.
 429 Too many request | The user has sent too many requests in a given amount of time.
+
+# HTTPS
+
+![img](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/Encryption-process-Cryptomathic.png)
+
+- Client request TLS connection via TCP;
+- Server send its certificate;
+- Client validate and send one-time key to Server;
+- Communicate via HTTP (symmetric encryption).
