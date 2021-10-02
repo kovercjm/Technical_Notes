@@ -1,3 +1,12 @@
+# ArrayList & LinkedList
+
+- ArrayList
+  - based on array
+  - resize to 1.5x volume when full
+  - move other elements when insert / delete
+- LinkedList
+  - need traverse when insert / delete
+
 # HashMap
 
 ![img](https://raw.githubusercontent.com/KOVERcjm/Pictures/master/e4a19398.png)
@@ -10,11 +19,15 @@ Java HashMap is storing data by arrays and linked list. The index of array is ca
 
 When a linked list has more than 8 nodes, the list will be transferred into a red-black tree.
 
-HashMap is not thread-safe, and the thread-safe version can use ConcurrentHashMap. When concurrently used HashMap, can cause dead loop by `get()`, because when resizing two threads can be creating the same thread at the same time and then caused a loop in linked list.
+HashMap is not thread-safe, and the thread-safe version can use ConcurrentHashMap.
+
+In JDK 1.7, when concurrently used HashMap, can cause dead loop by `get()`, because when resizing (`HashMap#transfer()`) two threads can be creating the same thread at the same time and then caused a loop in linked list.
+
+In JDK 1.8, the above bug is fixed, but when concurrently `put()` in a HashMap, the `HashMap#putVal()` may let one input re-write another thread's input.
 
 # ConcorrentHashMap
 
-Using CAS + synchronized to maintain concurrency.
+Using CAS for creating new linked list and synchronized for modifying a linked list or Red-Black tree.
 
 # CopyOnWriteArrayList
 
