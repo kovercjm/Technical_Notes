@@ -7,7 +7,7 @@
   - the smallest sequence of programmed instructions that can be managed by OS
   - shared resources with other threads in same process
 - Coroutine
-  - a computer program components that allows execution to be suspended and resumed
+  - a computer program components that allows execution to be suspended and resumed, controlled by program
   - Multi-coroutine in one thread can only make use of one core of CPU
 
 # Comparison
