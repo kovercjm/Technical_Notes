@@ -81,7 +81,7 @@ Abstract Factory has a higher-level Factory for deside which Factory is used to 
 - Example:
   - Bean creation in Spring IoC (a map for singleton object)
 - Advantage:
-  - Obey Single-responsibity and Open-close Principle
+  - Obey Single-responsibility and Open-close Principle
   - Decoupling the system
 - Problem:
   - Complicated coding for creating many subclasses
@@ -96,7 +96,7 @@ Separate the construction of a complex object from its representation, allowing 
   - Generate objects that have complex inner structure
   - Generate objects that have inner dependency or order of generation
 - Advantage:
-  - Obey Single-responsibity and Open-close Principle
+  - Obey Single-responsibility and Open-close Principle
 - Problem:
   - Complicated coding for creating many subclasses
   - Hard to create objects that have large inner difference
@@ -108,21 +108,162 @@ Specify the kinds of objects to create using a prototypical instance, and create
 - Problem:
   - Clone can be copy or deepcopy
 
-## Adapter (TBC)
+## Adapter
 
 Convert the interface of a class into another interface clients expect. An adapter lets classes work together that could not otherwise because of incompatible interfaces. The enterprise integration pattern equivalent is the translator.
 
+- Example:
+  - Each DB engine has JDBC driver (adapter) for integration with JDBC interface
+- Advantage:
+  - Obey Single-responsibility and Open-close Principle
+- Problem:
+  - Complicated coding
 
+## Bridge
 
-- Bridge
-  - Decouple an abstraction from its implementation allowing the two to vary independently.
-- Composite
-  - Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.
-- Decorator
-  - Attach additional responsibilities to an object dynamically keeping the same interface. Decorators provide a flexible alternative to subclassing for extending functionality.
-- Facade
-  - Provide a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use.
-- Flyweight
-  - Use sharing to support large numbers of similar objects efficiently.
-- Proxy
-  - Provide a surrogate or placeholder for another object to control access to it.
+Decouple an abstraction from its implementation allowing the two to vary independently.
+
+- Advantage:
+  - Obey Single-responsibility and Open-close Principle
+  - Have Implementation as a reference of Abstraction; composition instead of inheritance
+- Problem:
+  - Complicated coding
+  - Hard to identify two dimension of individually changing class
+
+## Composite
+
+Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.
+
+- Advantage:
+  - Obey Open-close Principle
+
+## Decorator
+
+Attach additional responsibilities to an object dynamically keeping the same interface. Decorators provide a flexible alternative to subclassing for extending functionality.
+
+- Advantage:
+  - Obey Single-responsibility Principle
+  - Expand an object's ability without inheritance
+- Problem:
+  - Decorator is decorated in stack, hard to delete or run without order
+
+## Facade
+
+Provide a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use.
+
+- Problem:
+  - Changing of subsystem may need to modify facade class; may violate Open-close Principle
+
+## Flyweight
+
+Use sharing to support large numbers of similar objects efficiently.
+
+- Advantage:
+  - Save memory by keep only one copy of similar object, decided by flyweight factory
+- Problem:
+  - Processing speed may be sacrificed by retrieving status of flyweight objects
+
+## Proxy
+
+Provide a surrogate or placeholder for another object to control access to it.
+
+- Type: Remote, Virtual (lazy-loading), Copy-on-Write, Protect or Access, Cache, Firewall, Synchronization, Smart Reference
+- Example:
+  - Dynamic Proxy: Spring AOP
+- Advantage:
+  - Obey Open-close Principle
+  - Often contains life-circle management of service object
+- Problem:
+  - Complicated coding and delay of response
+
+## Chain of responsibility
+
+Avoid coupling the sender of a request to its receiver by giving more than one object a chance to handle the request. Chain the receiving objects and pass the request along the chain until an object handles it.
+
+- Advantage:
+  - Obey Single-responsibility and Open-close Principle
+- Problem:
+  - Some request may not be handled
+
+## Command
+
+Encapsulate a request as an object, thereby allowing for the parameterization of clients with different requests, and the queuing or logging of requests. It also allows for the support of undoable operations.
+
+- Advantage:
+  - Obey Single-responsibility and Open-close Principle
+  - Can have 'cancel', 'recover', 'lazy-process' function, or have combined Marco command
+- Problem:
+  - Complicated coding
+
+## Interpreter
+
+Given a language, define a representation for its grammar along with an interpreter that uses the representation to interpret sentences in the language.
+
+## Iterator
+
+Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation.
+
+- Advantage:
+  - Obey Single-responsibility and Open-close Principle
+  - Can have concurrency iterators and flexible control of iterator
+- Problem:
+  - Not for simple set of data
+
+## Mediator
+
+Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it allows their interaction to vary independently.
+
+- Advantage:
+  - Obey Single-responsibility and Open-close Principle
+  - Can loose coupling and good for reusing
+- Problem:
+  - May become God Object
+
+## Memento
+
+Without violating encapsulation, capture and externalize an object's internal state allowing the object to be restored to this state later.
+
+- Only Originator has full access to its Memento, Caretakers stores the stragey of restoring
+
+## Observer
+
+Define a one-to-many dependency between objects where a state change in one object results in all its dependents being notified and updated automatically.
+
+- Advantage:
+  - Obey Open-close Principle
+
+## State
+
+Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.
+
+- Advantage:
+  - Obey Single-responsibility and Open-close Principle
+  - Can simplify finite-state machine
+
+## Strategy
+
+Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.
+
+- Advantage:
+  - Obey Open-close Principle
+
+## Template Method
+
+Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure.
+
+- Advantage:
+  - Can rewrite certain part with small influction on other part of an algorithm
+- Problem:
+  - Rewrite in subclass may violate Liskov substitution principle
+
+## Visitor
+
+Represent an operation to be performed on the elements of an object structure. Visitor lets a new operation be defined without changing the classes of the elements on which it operates.
+
+- Advantage:
+  - Obey Single-responsibility and Open-close Principle
+
+# Reference
+
+- [Design Patterns Catalog](https://refactoringguru.cn/design-patterns/catalog)
+
