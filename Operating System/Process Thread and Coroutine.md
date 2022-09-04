@@ -5,9 +5,9 @@
   - a container of threads
 - Thread
   - the smallest sequence of programmed instructions that can be managed by OS
-  - shared resources with other threads in same process
+  - shared resources with other threads in same process, controlled by mutex
 - Coroutine
-  - a computer program components that allows execution to be suspended and resumed, controlled by program
+  - a computer program component that allows execution to be suspended and resumed, controlled by program
   - Multi-coroutine in one thread can only make use of one core of CPU
 
 # Comparison
@@ -47,5 +47,5 @@
   - Threads will not block others;
   - Switching will cost much;
   - As kernel threads are limited, lots of threads will affect performance
-- M:N - M user thead to N KSE - Go
+- M:N - M user thead to N KSE - [[Goroutine]]
 
